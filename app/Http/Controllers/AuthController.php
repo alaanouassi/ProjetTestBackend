@@ -50,9 +50,7 @@ class AuthController extends Controller
             'password.required' => 'Veuillez Entrez tout les informations!'
         ]);
 
-        // check email
         $user = User::where('email', $fields['email'])->first();
-        // check Password
         if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
                 'message' => 'Login ou mot de passe incorrecte!'
@@ -95,10 +93,6 @@ class AuthController extends Controller
         $user->adresse = $request->adresse;
         $user->ville = $request->ville;
         $user->photo  = $request->photo;
-        // if ($request->hasFile('photo')) {
-        //     $path = $request->file('photo')->store('images');
-        //     $user->photo  = $path;
-        // }
         $user->save();
 
         return $user;
